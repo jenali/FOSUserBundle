@@ -17,9 +17,6 @@ use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 
 /**
  * Storage agnostic user object.
- *
- * @author Thibault Duplessis <thibault.duplessis@gmail.com>
- * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
 abstract class User implements UserInterface, GroupableInterface
 {

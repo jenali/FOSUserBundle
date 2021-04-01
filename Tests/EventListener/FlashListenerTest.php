@@ -24,13 +24,15 @@ class FlashListenerTest extends TestCase
     /** @var FlashListener */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->event = new Event();
 
         $flashBag = $this->getMockBuilder('Symfony\Component\HttpFoundation\Session\Flash\FlashBag')->getMock();
 
-        $session = $this->getMockBuilder('Symfony\Component\HttpFoundation\Session\Session')->disableOriginalConstructor()->getMock();
+        $session = $this->getMockBuilder(
+            'Symfony\Component\HttpFoundation\Session\Session'
+        )->disableOriginalConstructor()->getMock();
         $session
             ->expects($this->once())
             ->method('getFlashBag')

@@ -25,17 +25,19 @@ class UserManagerTest extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject */
     private $fieldsUpdater;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->passwordUpdater = $this->getMockBuilder('FOS\UserBundle\Util\PasswordUpdaterInterface')->getMock();
         $this->fieldsUpdater = $this->getMockBuilder('FOS\UserBundle\Util\CanonicalFieldsUpdater')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->manager = $this->getUserManager([
-            $this->passwordUpdater,
-            $this->fieldsUpdater,
-        ]);
+        $this->manager = $this->getUserManager(
+            [
+                $this->passwordUpdater,
+                $this->fieldsUpdater,
+            ]
+        );
     }
 
     public function testUpdateCanonicalFields()

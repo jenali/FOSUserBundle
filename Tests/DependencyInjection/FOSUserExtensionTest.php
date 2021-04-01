@@ -21,7 +21,7 @@ class FOSUserExtensionTest extends TestCase
     /** @var ContainerBuilder */
     protected $configuration;
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->configuration = null;
     }
@@ -209,7 +209,11 @@ class FOSUserExtensionTest extends TestCase
         $overriden = ['ltd@acme.com' => 'Acme Ltd'];
 
         return [
-            [$configBothFeaturesDisabled, ['no-registration@acme.com' => 'Acme Ltd'], ['no-resetting@acme.com' => 'Acme Ltd']],
+            [
+                $configBothFeaturesDisabled,
+                ['no-registration@acme.com' => 'Acme Ltd'],
+                ['no-resetting@acme.com' => 'Acme Ltd']
+            ],
             [$configResettingDisabled, $default, ['no-resetting@acme.com' => 'Acme Ltd']],
             [$configRegistrationDisabled, ['no-registration@acme.com' => 'Acme Ltd'], $default],
             [$configOverridenRegistrationEmail, $overriden, $default],
@@ -323,7 +327,10 @@ class FOSUserExtensionTest extends TestCase
 
         $this->assertParameter(true, 'fos_user.registration.confirmation.enabled');
         $this->assertParameter(['register@acme.org' => 'Acme Corp'], 'fos_user.registration.confirmation.from_email');
-        $this->assertParameter('AcmeMyBundle:Registration:mail.txt.twig', 'fos_user.registration.confirmation.template');
+        $this->assertParameter(
+            'AcmeMyBundle:Registration:mail.txt.twig',
+            'fos_user.registration.confirmation.template'
+        );
         $this->assertParameter('AcmeMyBundle:Resetting:mail.txt.twig', 'fos_user.resetting.email.template');
         $this->assertParameter(['reset@acme.org' => 'Acme Corp'], 'fos_user.resetting.email.from_email');
         $this->assertParameter(7200, 'fos_user.resetting.retry_ttl');
@@ -383,7 +390,7 @@ class FOSUserExtensionTest extends TestCase
             $factory = $definition->getFactory();
 
             $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $factory[0]);
-            $this->assertSame('fos_user.doctrine_registry', (string) $factory[0]);
+            $this->assertSame('fos_user.doctrine_registry', (string)$factory[0]);
             $this->assertSame('getManager', $factory[1]);
         } else {
             $this->assertSame('fos_user.doctrine_registry', $definition->getFactoryService());
@@ -512,11 +519,11 @@ EOF;
      */
     private function assertAlias($value, $key)
     {
-        $this->assertSame($value, (string) $this->configuration->getAlias($key), sprintf('%s alias is correct', $key));
+        $this->assertSame($value, (string)$this->configuration->getAlias($key), sprintf('%s alias is correct', $key));
     }
 
     /**
-     * @param mixed  $value
+     * @param mixed $value
      * @param string $key
      */
     private function assertParameter($value, $key)

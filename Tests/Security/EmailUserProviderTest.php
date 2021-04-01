@@ -26,7 +26,7 @@ class EmailUserProviderTest extends TestCase
      */
     private $userProvider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->userManager = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')->getMock();
         $this->userProvider = new EmailUserProvider($this->userManager);
@@ -59,8 +59,8 @@ class EmailUserProviderTest extends TestCase
     public function testRefreshUserBy()
     {
         $user = $this->getMockBuilder('FOS\UserBundle\Model\User')
-                    ->setMethods(['getId'])
-                    ->getMock();
+            ->setMethods(['getId'])
+            ->getMock();
 
         $user->expects($this->once())
             ->method('getId')
